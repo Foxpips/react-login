@@ -3,6 +3,10 @@ import { connect } from "react-redux";
 import { MDBNavLink } from "mdbreact";
 
 class Home extends React.Component {
+  componentDidMount() {
+    console.log(this.props);
+  }
+
   render() {
     return (
       <div>

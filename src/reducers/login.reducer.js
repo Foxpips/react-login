@@ -13,11 +13,11 @@ export const register = user => {
   };
 };
 
-export const logout = user => {
+export const logout = () => {
   eraseCookie("user");
 
   return {
-    payload: initial_state,
+    payload: initial_state.user,
     type: "LOGOUT"
   };
 };
@@ -25,7 +25,7 @@ export const logout = user => {
 export const checkIfLoggedIn = () => {
   const userDataFromCookie = JSON.parse(getCookie("user"));
   return {
-    payload: userDataFromCookie || initial_state,
+    payload: userDataFromCookie || initial_state.user,
     type: "IS_LOGGED_IN"
   };
 };
