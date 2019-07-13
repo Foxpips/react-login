@@ -33,10 +33,11 @@ const FormPage = () => {
               />
             </div>
             <div className="text-center">
-              <MDBBtn>Login</MDBBtn>
+              <MDBBtn color="primary">Login</MDBBtn>
             </div>
             <div>
-              <MDBNavLink to="/register">Register</MDBNavLink>
+              <br /> <small>Not a member?</small>
+              <MDBNavLink to="/register">Register Here</MDBNavLink>
             </div>
           </form>
         </MDBCol>
