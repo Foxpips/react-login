@@ -1,26 +1,28 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from "mdbreact";
+import { connect } from "react-redux";
+import { setName } from "../reducers/login.reducer";
 
-const Register = () => {
+const Register = props => {
   return (
     <MDBContainer>
       <MDBRow>
-        <MDBCol md="6">
+        <MDBCol md="12">
           <form>
-            <p className="h5 text-center mb-4">Sign up</p>
+            <p className="h5 text-center mb-4">Register</p>
             <div className="grey-text">
               <MDBInput
                 label="Your name"
-                icon="user"
                 group
                 type="text"
+                required
                 validate
                 error="wrong"
                 success="right"
+                onBlur={event => props.setName(event.target.value)}
               />
               <MDBInput
                 label="Your email"
-                icon="envelope"
                 group
                 type="email"
                 validate
@@ -29,20 +31,13 @@ const Register = () => {
               />
               <MDBInput
                 label="Confirm your email"
-                icon="exclamation-triangle"
                 group
                 type="text"
                 validate
                 error="wrong"
                 success="right"
               />
-              <MDBInput
-                label="Your password"
-                icon="lock"
-                group
-                type="password"
-                validate
-              />
+              <MDBInput label="Your password" group type="password" validate />
             </div>
             <div className="text-center">
               <MDBBtn color="primary">Register</MDBBtn>
@@ -54,4 +49,7 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default connect(
+  null,
+  { setName }
+)(Register);
