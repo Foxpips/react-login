@@ -33,7 +33,9 @@ const FormPage = () => {
               />
             </div>
             <div className="text-center">
-              <MDBBtn color="primary">Login</MDBBtn>
+              <MDBBtn color="primary" disabled>
+                Login
+              </MDBBtn>
             </div>
             <div>
               <br /> <small>Not a member?</small>
