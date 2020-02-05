@@ -31,7 +31,7 @@ class LandingPage extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.checkIfLoggedIn();
   }
 
@@ -121,7 +121,6 @@ class LandingPage extends React.Component {
   }
 }
 
-export default connect(
-  state => ({ user: state.login.user }),
-  { checkIfLoggedIn }
-)(withRouter(LandingPage));
+export default connect(state => ({ user: state.login.user }), {
+  checkIfLoggedIn
+})(withRouter(LandingPage));

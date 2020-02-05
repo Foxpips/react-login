@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import { logout } from "../reducers/login.reducer";
 
 class Logout extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.logout();
   }
 
@@ -13,7 +13,4 @@ class Logout extends React.Component {
   }
 }
 
-export default connect(
-  null,
-  { logout }
-)(Logout);
+export default connect(null, { logout })(Logout);
