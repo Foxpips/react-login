@@ -4,9 +4,9 @@ import {
   IInputState,
   IError,
   IValidationError
-} from "./validation.interfaces";
-import * as s from "./validation.styles";
-import { Validate } from "./validation.input";
+} from "../validation.interfaces";
+import * as s from "../validation.styles";
+import { Validate } from "../helpers/validator";
 
 export class ValidationInput extends React.Component<
   InputFieldInterfaces,

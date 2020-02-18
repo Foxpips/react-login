@@ -2,7 +2,7 @@ import {
   IError,
   IValidationObjectItem,
   IValidationError
-} from "./validation.interfaces";
+} from "../validation.interfaces";
 
 export const Validate = (
   value: any,

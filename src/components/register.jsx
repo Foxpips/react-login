@@ -9,11 +9,6 @@ import {
 } from "mdbreact";
 import { connect } from "react-redux";
 import { register } from "../reducers/login.reducer";
-import {
-  isFormValid,
-  validateField,
-  validateRequiredFields
-} from "./../validation/register.validation";
 
 class Register extends React.Component {
   constructor(props) {
@@ -33,33 +28,18 @@ class Register extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    let formErrors = this.state.formErrors;
-
-    validateRequiredFields(this.state, formErrors);
-    this.setState({ formErrors }, () => {
-      const { username, password, email, formErrors } = this.state;
-      if (isFormValid(formErrors)) {
-        this.props.register({ username, password, email, isLoggedIn: true });
-        this.props.history.push("/");
-      }
-    });
   };
 
   handleBlur = event => {
     const { name, value } = event.target;
-    let formErrors = this.state.formErrors;
 
     this.setState({
-      formErrors: validateField(formErrors, name, value),
       [name]: value
     });
   };
 
   handleChange = event => {
     if (event.target.keyCode === 13) return;
-    let formErrors = this.state.formErrors;
-    formErrors[event.target.name] = "";
-    this.setState({ formErrors }, () => console.log(this.state));
   };
 
   onKeyPress(event) {
@@ -134,7 +114,4 @@ class Register extends React.Component {
     );
   }
 }
-export default connect(
-  null,
-  { register }
-)(Register);
+export default connect(null, { register })(Register);

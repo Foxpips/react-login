@@ -1,4 +1,4 @@
-import { IValidationObjects } from "./validation.interfaces";
+import { IValidationObjects } from "../validation.interfaces";
 
 const ValidationTypes: IValidationObjects = {
   Required: {
