@@ -1,111 +1,91 @@
 import * as React from "react";
 import {
   InputFieldInterfaces,
-  IInputState,
-  IError,
+  // IInputState,
+  // IError,
   IValidationError
 } from "../../validation.interfaces";
 import * as s from "../../validation.styles";
 import { Validate } from "../../helpers/validator";
+import { useState, useEffect, useRef } from "react";
 
-export class ValidationInput extends React.Component<
-  InputFieldInterfaces,
-  IInputState
-> {
-  public static defaultProps = {
-    type: "text"
-  };
+export const ValidationInput = (props: InputFieldInterfaces) => {
+  // IInputState
+  const mounting = useRef(true);
+  const [value, setValue] = useState<string | number>(props.value);
+  const [errors, setErrors] = useState<any>([]);
 
-  constructor(props: InputFieldInterfaces) {
-    super(props);
-
-    this.state = {
-      value: this.props.value,
-      errors: []
-    };
-  }
-
-  private validateField = (value: any) => {
-    const validationErrors: IValidationError = Validate(
+  const validateInput = (value: any) => {
+    const { errors }: IValidationError = Validate(
       value,
-      this.props.name,
-      this.props.datavalidationtypes
+      props.name,
+      props.datavalidationtypes
     );
 
-    this.setState({
-      value,
-      errors: { ...this.state.errors }
-    });
+    setValue(value);
+    setErrors([...errors]);
 
-    validationErrors.errors.forEach((error: IError) => {
-      this.setState({ errors: [error] });
-    });
+    props.setError(errors.length > 0);
 
-    this.props.setError(validationErrors.errors.length > 0);
+    console.log("value", value);
+    console.log("errors", errors);
   };
 
-  public componentDidUpdate(prevProps: any) {
-    if (
-      this.props.fireValidation &&
-      prevProps.fireValidation !== this.props.fireValidation
-    ) {
-      this.validateField(this.state.value);
+  useEffect(() => {
+    if (mounting.current) {
+      mounting.current = false;
+      console.log("mounting");
+    } else {
+      validateInput(value);
     }
-  }
 
-  public validateInput = (e: any) => {
-    const value = e.target.value;
-    this.validateField(value);
+    return () => {
+      console.log("unmounting");
+    };
+  }, [value, props.fireValidation]);
+
+  const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    props.handleBlur && props.handleBlur(e);
+    validateInput(e.target.value);
   };
 
-  public getAlert = () => {
-    alert(this.props.name);
+  const handleInputFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    props.handleFocus && props.handleFocus(e);
   };
 
-  public handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    this.props.handleBlur && this.props.handleBlur(e);
-    this.validateInput(e);
+  const handleInputKeyDown = (e: any) => {
+    props.handleKeyDown && props.handleKeyDown(e);
+    validateInput(e.target.value);
   };
 
-  public handleInputFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    this.props.handleFocus && this.props.handleFocus(e);
+  const handleInputChange = (e: React.FocusEvent<HTMLInputElement>) => {
+    props.handleChange && props.handleChange(e, props.id);
+    validateInput(e.target.value);
   };
 
-  public handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    this.props.handleKeyDown && this.props.handleKeyDown(e);
-    this.validateInput(e);
-  };
-
-  public handleInputChange = (e: React.FocusEvent<HTMLInputElement>) => {
-    this.props.handleChange && this.props.handleChange(e, this.props.id);
-    this.validateInput(e);
-  };
-
-  public render() {
-    return (
-      <>
-        <input
-          // {...this.props}
-          value={this.state.value}
-          id={this.props.id}
-          name={this.props.name}
-          placeholder={this.props.placeholder}
-          disabled={this.props.disabled}
-          role={this.props.role}
-          type={this.props.type}
-          maxLength={this.props.maxLength}
-          required={this.props.required}
-          aria-label={this.props.ariaLabel}
-          onBlur={this.handleInputBlur}
-          onFocus={this.handleInputFocus}
-          onChange={this.handleInputChange}
-          onKeyDown={this.handleInputKeyDown}
-          onPaste={this.props.handlePaste}
-        />
-        {this.state.errors.length > 0 && (
-          <s.ErrorMessage>{this.state.errors[0].errorMessage}</s.ErrorMessage>
-        )}
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <input
+        // {...props}
+        value={value}
+        id={props.id}
+        name={props.name}
+        placeholder={props.placeholder}
+        disabled={props.disabled}
+        role={props.role}
+        type={props.type}
+        maxLength={props.maxLength}
+        required={props.required}
+        aria-label={props.ariaLabel}
+        onBlur={handleInputBlur}
+        onFocus={handleInputFocus}
+        onChange={handleInputChange}
+        onKeyDown={handleInputKeyDown}
+        onPaste={props.handlePaste}
+      />
+      {errors.length > 0 && (
+        <s.ErrorMessage>{errors[0].errorMessage}</s.ErrorMessage>
+      )}
+    </>
+  );
+};

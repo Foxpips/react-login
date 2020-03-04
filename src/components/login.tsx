@@ -22,9 +22,11 @@ class FormPage extends Component<any, IValidationState> {
     return (
       <ValidationForm
         onSubmit={(formFields: any) => {
-          console.log("form has an error: ", this.state.hasError);
-          console.log("fields: ", formFields);
+          // console.log("form has an error: ", this.state.hasError);
           fireValidation(this);
+          if (!this.state.hasError && this.state.fireValidation) {
+            console.log("SUBMITTING: ", formFields);
+          }
         }}
       >
         <div>
@@ -33,10 +35,10 @@ class FormPage extends Component<any, IValidationState> {
             fireValidation={this.state.fireValidation}
             setError={(error: any) => setError(this, error)}
             value=""
-            placeholder="Firstname"
-            id="Firstname"
+            placeholder="Email"
+            id="Email"
             type="input"
-            name="Firstname"
+            name="Email"
             datavalidationtypes={[
               ValidationTypes.Required,
               ValidationTypes.Email
@@ -49,10 +51,10 @@ class FormPage extends Component<any, IValidationState> {
             fireValidation={this.state.fireValidation}
             setError={(error: any) => setError(this, error)}
             value=""
-            placeholder="Surname"
-            id="Surname"
+            placeholder="Password"
+            id="Password"
             type="input"
-            name="Surname"
+            name="Password"
             datavalidationtypes={[
               ValidationTypes.Required,
               ValidationTypes.Password
