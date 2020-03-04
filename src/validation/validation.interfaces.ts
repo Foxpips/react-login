@@ -47,8 +47,8 @@ export interface IInputState {
 }
 
 export interface InputFieldInterfaces extends IInputProps {
-  fireValidation?: string;
-  setHasError?: any;
+  fireValidation: boolean;
+  setError: (hasError: boolean) => void;
 }
 
 export interface IInputProps {
@@ -70,4 +70,15 @@ export interface IInputProps {
   type?: string;
   value: string | number;
   datavalidationtypes: IValidationObjectItem[];
+}
+
+export interface ISetErrorValidationState {
+  setState: ({ hasError: boolean }: any) => void;
+}
+export interface IFireValidationState {
+  setState: ({ fireValidation: boolean }: any) => void;
+}
+export interface IValidationState {
+  fireValidation: boolean;
+  hasError: boolean;
 }
