@@ -47,9 +47,8 @@ export interface IInputState {
 }
 
 export interface InputFieldInterfaces extends IInputProps {
-  inputRef?: any;
-  fireValidation: string;
-  setHasError: any;
+  fireValidation?: string;
+  setHasError?: any;
 }
 
 export interface IInputProps {

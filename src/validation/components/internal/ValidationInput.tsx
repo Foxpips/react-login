@@ -4,11 +4,11 @@ import {
   IInputState,
   IError,
   IValidationError
-} from "../validation.interfaces";
-import * as s from "../validation.styles";
-import { Validate } from "../helpers/validator";
+} from "../../validation.interfaces";
+import * as s from "../../validation.styles";
+import { Validate } from "../../helpers/validator";
 
-export class ValidationInput extends React.Component<
+export class _ValidationInput extends React.Component<
   InputFieldInterfaces,
   IInputState
 > {
@@ -18,6 +18,7 @@ export class ValidationInput extends React.Component<
 
   constructor(props: InputFieldInterfaces) {
     super(props);
+    // console.log("constructor props", props);
 
     this.state = {
       value: this.props.value,
@@ -41,10 +42,16 @@ export class ValidationInput extends React.Component<
       this.setState({ errors: [error] });
     });
 
+    // console.log("Props for validationInpuit", this.props);
     this.props.setHasError(validationErrors.errors.length > 0);
   };
 
+  public componentDidMount() {
+    // console.log("mounting!");
+  }
+
   public componentDidUpdate(prevProps: any) {
+    // console.log("Updating", this.props);
     if (
       this.props.fireValidation &&
       prevProps.fireValidation !== this.props.fireValidation
@@ -86,7 +93,6 @@ export class ValidationInput extends React.Component<
       <>
         <input
           {...this.props}
-          ref={this.props.inputRef}
           value={this.state.value}
           id={this.props.id}
           name={this.props.name}
@@ -110,5 +116,3 @@ export class ValidationInput extends React.Component<
     );
   }
 }
-
-// export default React.forwardRef(ValidationInput as any);

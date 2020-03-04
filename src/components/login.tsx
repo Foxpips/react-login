@@ -1,67 +1,47 @@
 import React, { Component } from "react";
-import { ValidationForm } from "../validation/components/ValidationForm";
-import { ValidationInput } from "../validation/components/ValidationInput";
+
 import ValidationTypes from "../validation/helpers/validation.types";
+import { ValidationForm } from "../validation/components/external/ValidationForm";
+import { _ValidationInput as ValidationInput } from "../validation/components/internal/ValidationInput";
 
 class FormPage extends Component<any, any> {
-  public componentDidUpdate() {}
-
-  constructor(props: any) {
-    super(props);
-
-    this.state = {
-      fireValidation: false,
-      hasError: false
-    };
-  }
-
-  public setHasError = (hasError: boolean) => {
-    this.setState({
-      hasError
-    });
-  };
-
   public render() {
     return (
       <ValidationForm
         onSubmit={() => {
-          console.log("hasError", this.state.hasError);
-          this.setState({ fireValidation: true });
+          console.log("submitting!");
         }}
       >
-        <div>
-          <ValidationInput
-            fireValidation={this.state.fireValidation}
-            setHasError={this.setHasError}
-            value=""
-            // required
-            placeholder="Firstname"
-            id="Firstname"
-            type="input"
-            name="Firstname"
-            datavalidationtypes={[
-              ValidationTypes.Required,
-              ValidationTypes.Email
-            ]}
-          />
-        </div>
-        <div>
-          <ValidationInput
-            fireValidation={this.state.fireValidation}
-            setHasError={this.setHasError}
-            value=""
-            // required
-            placeholder="Surname"
-            id="Surname"
-            type="input"
-            name="Surname"
-            datavalidationtypes={[
-              ValidationTypes.Required,
-              ValidationTypes.Password
-            ]}
-          />
-        </div>
-
+        <>
+          <div>
+            <ValidationInput
+              value=""
+              // required
+              placeholder="Firstname"
+              id="Firstname"
+              type="input"
+              name="Firstname"
+              datavalidationtypes={[
+                ValidationTypes.Required,
+                ValidationTypes.Email
+              ]}
+            />
+          </div>
+          <div>
+            <ValidationInput
+              value=""
+              // required
+              placeholder="Surname"
+              id="Surname"
+              type="input"
+              name="Surname"
+              datavalidationtypes={[
+                ValidationTypes.Required,
+                ValidationTypes.Password
+              ]}
+            />
+          </div>
+        </>
         <button type="submit">Save</button>
       </ValidationForm>
     );
