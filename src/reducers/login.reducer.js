@@ -13,6 +13,13 @@ export const register = user => {
   };
 };
 
+export const setDimensions = dimensions => {
+  return {
+    payload: dimensions,
+    type: "SET_DIMENSIONS"
+  };
+};
+
 export const logout = () => {
   eraseCookie("user");
 
@@ -32,6 +39,11 @@ export const checkIfLoggedIn = () => {
 
 export default (state = initial_state, action) => {
   switch (action.type) {
+    case "SET_DIMENSIONS":
+      return {
+        ...state,
+        dimensions: action.payload
+      };
     case "REGISTER":
       return {
         ...state,
