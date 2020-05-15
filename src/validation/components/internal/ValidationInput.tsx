@@ -3,7 +3,7 @@ import {
   InputFieldInterfaces,
   // IInputState,
   // IError,
-  IValidationError
+  IValidationError,
 } from "../../validation.interfaces";
 import * as s from "../../validation.styles";
 import { Validate } from "../../helpers/validator";
@@ -25,7 +25,8 @@ export const ValidationInput = (props: InputFieldInterfaces) => {
     setValue(value);
     setErrors([...errors]);
 
-    props.setError(errors.length > 0);
+    props.setIsValidated(true);
+    props.setHasError(errors.length > 0);
 
     console.log("value", value);
     console.log("errors", errors);
@@ -42,7 +43,7 @@ export const ValidationInput = (props: InputFieldInterfaces) => {
     return () => {
       console.log("unmounting");
     };
-  }, [value, props.fireValidation]);
+  }, [value, props.isValidated]);
 
   const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     props.handleBlur && props.handleBlur(e);

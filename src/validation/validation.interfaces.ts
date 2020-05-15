@@ -47,8 +47,9 @@ export interface IInputState {
 }
 
 export interface InputFieldInterfaces extends IInputProps {
-  fireValidation: boolean;
-  setError: (hasError: boolean) => void;
+  isValidated: boolean;
+  setIsValidated: (firing: boolean) => void;
+  setHasError: (hasError: boolean) => void;
 }
 
 export interface IInputProps {
@@ -68,6 +69,10 @@ export interface IInputProps {
   placeholder: string;
   role?: string;
   type?: string;
+  // type?: React.DetailedHTMLProps<
+  //   React.HTMLAttributes<HTMLElement>,
+  //   HTMLElement
+  // >;
   value: string | number;
   datavalidationtypes: IValidationObjectItem[];
 }

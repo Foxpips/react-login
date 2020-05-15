@@ -19,7 +19,7 @@ export class SimpleSlider extends React.Component {
         height: window.innerHeight,
         pageHeight: document.body.clientHeight,
         pageWidth: document.body.clientWidth,
-        width: window.innerWidth
+        width: window.innerWidth,
       });
     }, 500);
   };
@@ -38,7 +38,8 @@ export class SimpleSlider extends React.Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       centerMode: true,
-      centerPadding: "80px"
+      initialSlide: 2,
+      centerPadding: "80px",
     };
     if (this.props.width > 900) {
       this.slider.slickGoTo(0);
@@ -46,9 +47,10 @@ export class SimpleSlider extends React.Component {
       settings = {
         dots: true,
         infinite: true,
+        centerMode: false,
         speed: 500,
         slidesToShow: 6,
-        slidesToScroll: 6
+        slidesToScroll: 6,
       };
     }
     console.log(this.props.width);
@@ -61,12 +63,12 @@ export class SimpleSlider extends React.Component {
       { name: "product" },
       { name: "product" },
       { name: "product" },
-      { name: "product" }
+      { name: "product" },
     ];
     return (
       <div>
         <h2> Single Item</h2>
-        <Slider ref={slider => (this.slider = slider)} {...settings}>
+        <Slider ref={(slider) => (this.slider = slider)} {...settings}>
           {children.map((kid, index) => (
             <s.Product key={index}>
               <h3>{`${kid.name} ${++index}`}</h3>
@@ -78,11 +80,11 @@ export class SimpleSlider extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   console.log("state", state);
   return {
     something: "something",
-    width: state.login.dimensions ? state.login.dimensions.width : 1
+    width: state.login.dimensions ? state.login.dimensions.width : 1,
   };
 };
 
