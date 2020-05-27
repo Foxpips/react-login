@@ -9,8 +9,7 @@ export class ValidationForm extends React.Component<IValidationForm> {
     e.preventDefault();
 
     const formFields: any = {};
-    Object.keys(e.target.elements).forEach(x => {
-      console.log(e.target.elements[x].name, e.target.elements[x].value);
+    Object.keys(e.target.elements).forEach((x) => {
       formFields[e.target.elements[x].name] = e.target.elements[x].value;
     });
 

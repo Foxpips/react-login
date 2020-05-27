@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import { ValidationForm } from "../validation/components/external/ValidationForm";
-import { ValidationInput } from "../validation/components/internal/ValidationInput";
+import { ValidationForm } from "../validation/components/ValidationForm";
+import { ValidationInput } from "../validation/components/ValidationInput";
 import ValidationTypes from "../validation/helpers/validation.types";
 
 const Form = () => {
   const [isValidated, setIsValidated] = useState(false);
   const [hasError, setHasError] = useState(false);
+
+  // useEffect(() => {
+  //   if (isValidated && !hasError) {
+  //     alert("success");
+  //   }
+  // }, [isValidated]);
 
   return (
     <>
@@ -14,9 +20,10 @@ const Form = () => {
           setIsValidated(true);
 
           if (!hasError && isValidated) {
-            alert("Success!");
-            Object.keys(formFields).map((x) => console.log(formFields[x]));
+            alert("success");
           }
+          console.log("no error", !hasError);
+          console.log("isValidated", isValidated);
         }}
       >
         <div>
@@ -27,7 +34,6 @@ const Form = () => {
             type="input"
             name="Email"
             isValidated={isValidated}
-            setIsValidated={setIsValidated}
             setHasError={setHasError}
             datavalidationtypes={[
               ValidationTypes.Required,
@@ -43,7 +49,6 @@ const Form = () => {
             type="input"
             name="Password"
             isValidated={isValidated}
-            setIsValidated={setIsValidated}
             setHasError={setHasError}
             datavalidationtypes={[
               ValidationTypes.Required,

@@ -14,15 +14,15 @@ export interface IValidationObjects {
   CAPostalCode: IValidationObjectItem;
 }
 
-export interface IError {
+export interface IValidationError {
   inputName: string | number;
   errorMessage: string;
 }
 
-export interface IValidationError {
+export interface IValidationErrors {
   inputName: string | number;
   value: any;
-  errors: IError[];
+  validationErrors: IValidationError[];
 }
 
 export interface IValidationObjectItem {
@@ -42,13 +42,12 @@ export interface IValidationObjects {
 }
 
 export interface IInputState {
-  errors: IError[];
+  errors: IValidationError[];
   value: any;
 }
 
 export interface InputFieldInterfaces extends IInputProps {
   isValidated: boolean;
-  setIsValidated: (firing: boolean) => void;
   setHasError: (hasError: boolean) => void;
 }
 

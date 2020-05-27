@@ -1,21 +1,24 @@
 import {
-  IError,
+  IValidationErrors,
   IValidationObjectItem,
-  IValidationError
+  IValidationError,
 } from "../validation.interfaces";
 
 export const Validate = (
   value: any,
   inputName: string,
   validationTypes: IValidationObjectItem[]
-): IValidationError => {
-  const errors: IError[] = [];
+): IValidationErrors => {
+  const validationErrors: IValidationError[] = [];
 
-  validationTypes.forEach(validationType => {
+  validationTypes.forEach((validationType) => {
     if (validationType.test(value)) {
-      errors.push({ inputName, errorMessage: validationType.message });
+      validationErrors.push({
+        inputName,
+        errorMessage: validationType.message,
+      });
     }
   });
 
-  return { inputName, value, errors };
+  return { inputName, value, validationErrors };
 };
