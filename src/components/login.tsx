@@ -4,26 +4,15 @@ import { ValidationInput } from "../validation/components/ValidationInput";
 import ValidationTypes from "../validation/helpers/validation.types";
 
 const Form = () => {
-  const [isValidated, setIsValidated] = useState(false);
-  const [hasError, setHasError] = useState(false);
-
-  // useEffect(() => {
-  //   if (isValidated && !hasError) {
-  //     alert("success");
-  //   }
-  // }, [isValidated]);
+  const [errors, setErrors] = useState<any>({ Email: true, Password: true });
 
   return (
     <>
       <ValidationForm
+        errors={errors}
         onSubmit={(formFields: any) => {
-          setIsValidated(true);
-
-          if (!hasError && isValidated) {
-            alert("success");
-          }
-          console.log("no error", !hasError);
-          console.log("isValidated", isValidated);
+          alert("success!");
+          console.log(formFields);
         }}
       >
         <div>
@@ -33,8 +22,8 @@ const Form = () => {
             id="Email"
             type="input"
             name="Email"
-            isValidated={isValidated}
-            setHasError={setHasError}
+            setErrors={setErrors}
+            errors={errors}
             datavalidationtypes={[
               ValidationTypes.Required,
               ValidationTypes.Email,
@@ -48,8 +37,8 @@ const Form = () => {
             id="Password"
             type="input"
             name="Password"
-            isValidated={isValidated}
-            setHasError={setHasError}
+            setErrors={setErrors}
+            errors={errors}
             datavalidationtypes={[
               ValidationTypes.Required,
               ValidationTypes.Password,

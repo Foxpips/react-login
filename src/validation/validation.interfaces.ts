@@ -47,8 +47,8 @@ export interface IInputState {
 }
 
 export interface InputFieldInterfaces extends IInputProps {
-  isValidated: boolean;
-  setHasError: (hasError: boolean) => void;
+  setErrors: any;
+  errors: any;
 }
 
 export interface IInputProps {

@@ -5,11 +5,14 @@ import {
 } from "../validation.interfaces";
 import * as s from "../validation.styles";
 import { Validate } from "../helpers/validator";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import ValidationContext from "./ValidationContext";
 
 export const ValidationInput = (props: InputFieldInterfaces) => {
   const [value, setValue] = useState<string | number>(props.value);
   const [errors, setErrors] = useState<any>([]);
+
+  const validationFired = useContext(ValidationContext);
 
   const validateInput = (value: any) => {
     const { validationErrors }: IValidationErrors = Validate(
@@ -20,14 +23,17 @@ export const ValidationInput = (props: InputFieldInterfaces) => {
 
     setValue(value);
     setErrors([...validationErrors]);
-    props.setHasError(validationErrors.length > 0);
+    props.setErrors({
+      ...props.errors,
+      [props.name]: validationErrors.length > 0,
+    });
   };
 
   useEffect(() => {
-    if (props.isValidated) {
+    if (validationFired) {
       validateInput(value);
     }
-  }, [props.isValidated]);
+  }, [validationFired]);
 
   const handleInputChange = (e: React.FocusEvent<HTMLInputElement>) => {
     props.handleChange && props.handleChange(e, props.id);
